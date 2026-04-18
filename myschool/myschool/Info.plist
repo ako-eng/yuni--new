@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>芋泥uni</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>134.175.183.224</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>127.0.0.1</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>用于访问校园通知服务（本机或局域网内的后端接口）。</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>保存你的校园名片卡片到相册，方便分享。</string>
+	<key>NSMotionUsageDescription</key>
+	<string>根据设备轻微倾斜让偏好类别气泡产生视差，让选择更生动。你可以在系统设置中关闭。</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>myschool</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>myschool</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
