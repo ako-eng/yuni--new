@@ -280,7 +280,7 @@ def create_app():
             if not isinstance(data, dict):
                 return jsonify({'status': 'error', 'message': 'JSON 根须为对象'}), 400
 
-            student_id = (data.get('studentId') or '').strip()
+            student_id = (data.get('student_id') or data.get('studentId') or '').strip()
             password = (data.get('password') or '').strip()
             
             if not student_id or not password:
