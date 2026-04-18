@@ -194,10 +194,11 @@ struct LoginView: View {
         // 调用登录API
         Task {
             do {
-                try await APIService.shared.login(studentId: studentId, password: password)
+                let userInfo = try await APIService.shared.login(studentId: studentId, password: password)
                 DispatchQueue.main.async {
                     isVerifying = false
-                    onLoginSuccess()
+                    AppSession.shared.completeLogin(studentId: self.studentId, name: userInfo.name, department: userInfo.department, major: userInfo.major, grade: userInfo.grade)
+                    self.onLoginSuccess()
                 }
             } catch {
                 DispatchQueue.main.async {

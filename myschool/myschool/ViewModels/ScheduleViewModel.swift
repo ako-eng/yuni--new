@@ -54,7 +54,38 @@ class ScheduleViewModel {
     }
 
     func loadData() {
-        allCourses = MockData.courses
+        // 从后端获取课表
+        Task {
+            do {
+                let studentId = AppSession.shared.studentId
+                if !studentId.isEmpty {
+                    let courseDTOs = try await APIService.shared.getSchedule(studentId: studentId)
+                    // 将 DTO 转换为 Course 模型
+                    allCourses = courseDTOs.map { dto in
+                        Course(
+                            id: dto.id,
+                            name: dto.name,
+                            teacher: dto.teacher,
+                            room: dto.room,
+                            dayOfWeek: dto.dayOfWeek,
+                            startPeriod: dto.startPeriod,
+                            endPeriod: dto.endPeriod,
+                            colorIndex: dto.colorIndex,
+                            weeks: dto.weeks
+                        )
+                    }
+                    print("课表加载成功，共 \(allCourses.count) 门课")
+                } else {
+                    // 如果没有学号，使用模拟数据
+                    allCourses = MockData.courses
+                }
+            } catch {
+                print("课表加载失败: \(error.localizedDescription)")
+                // 加载失败时使用模拟数据
+                allCourses = MockData.courses
+            }
+        }
+        // 其他数据仍使用模拟数据
         grades = MockData.grades
         exams = MockData.exams
         awards = MockData.awards

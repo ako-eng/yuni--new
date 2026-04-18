@@ -77,6 +77,49 @@ struct APIErrorBody: Codable {
     let message: String?
 }
 
+struct UserInfo: Codable {
+    let name: String
+    let department: String
+    let major: String
+    let grade: String
+}
+
+struct LoginResponse: Codable {
+    let status: String
+    let message: String
+    let userInfo: UserInfo
+
+    enum CodingKeys: String, CodingKey {
+        case status
+        case message
+        case userInfo = "user_info"
+    }
+}
+
+struct UpdateStudentInfoBody: Encodable {
+    let studentId: String
+    let department: String
+    let major: String
+    let grade: String
+}
+
+struct CourseDTO: Codable {
+    let id: String
+    let name: String
+    let teacher: String
+    let room: String
+    let dayOfWeek: Int
+    let startPeriod: Int
+    let endPeriod: Int
+    let colorIndex: Int
+    let weeks: [Int]
+}
+
+struct ScheduleResponse: Codable {
+    let status: String
+    let schedule: [CourseDTO]
+}
+
 // MARK: - Mapping
 
 enum NoticeMapping {
@@ -165,7 +208,7 @@ actor APIService {
         }
     }
 
-    func login(studentId: String, password: String) async throws {
+    func login(studentId: String, password: String) async throws -> UserInfo {
         let url = APIConfiguration.baseURL.appendingPathComponent("api/auth/login")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -174,6 +217,33 @@ actor APIService {
         enc.keyEncodingStrategy = .convertToSnakeCase
         request.httpBody = try enc.encode(
             LoginBody(studentId: studentId, password: password)
+        )
+        let (data, response) = try await session.data(for: request)
+        let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+        if (200 ..< 300).contains(code) {
+            let response = try decoder.decode(LoginResponse.self, from: data)
+            return response.userInfo
+        }
+        if let err = try? decoder.decode(APIErrorBody.self, from: data), let msg = err.message, !msg.isEmpty {
+            throw NSError(domain: "APIService", code: code, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
+        let text = String(data: data, encoding: .utf8) ?? ""
+        throw NSError(
+            domain: "APIService",
+            code: code,
+            userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "登录失败（HTTP \(code)）" : text]
+        )
+    }
+
+    func updateStudentInfo(studentId: String, department: String, major: String, grade: String) async throws {
+        let url = APIConfiguration.baseURL.appendingPathComponent("api/auth/update")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        let enc = JSONEncoder()
+        enc.keyEncodingStrategy = .convertToSnakeCase
+        request.httpBody = try enc.encode(
+            UpdateStudentInfoBody(studentId: studentId, department: department, major: major, grade: grade)
         )
         let (data, response) = try await session.data(for: request)
         let code = (response as? HTTPURLResponse)?.statusCode ?? 0
@@ -187,7 +257,31 @@ actor APIService {
         throw NSError(
             domain: "APIService",
             code: code,
-            userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "登录失败（HTTP \(code)）" : text]
+            userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "更新失败（HTTP \(code)）" : text]
+        )
+    }
+
+    func getSchedule(studentId: String) async throws -> [CourseDTO] {
+        let url = APIConfiguration.baseURL.appendingPathComponent("api/schedule")
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "student_id", value: studentId)]
+        guard let finalURL = components.url else {
+            throw URLError(.badURL)
+        }
+        let (data, response) = try await session.data(from: finalURL)
+        let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+        if (200 ..< 300).contains(code) {
+            let response = try decoder.decode(ScheduleResponse.self, from: data)
+            return response.schedule
+        }
+        if let err = try? decoder.decode(APIErrorBody.self, from: data), let msg = err.message, !msg.isEmpty {
+            throw NSError(domain: "APIService", code: code, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
+        let text = String(data: data, encoding: .utf8) ?? ""
+        throw NSError(
+            domain: "APIService",
+            code: code,
+            userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "获取课表失败（HTTP \(code)）" : text]
         )
     }
 

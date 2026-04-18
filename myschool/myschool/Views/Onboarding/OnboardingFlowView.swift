@@ -145,6 +145,24 @@ struct OnboardingFlowView: View {
         )
         saved.save()
 
+        // 更新本地用户信息
+        AppSession.shared.updateUserInfo(department: profile.college, major: profile.major, grade: profile.grade)
+
+        // 更新后端学籍信息
+        Task {
+            do {
+                try await APIService.shared.updateStudentInfo(
+                    studentId: AppSession.shared.studentId,
+                    department: profile.college,
+                    major: profile.major,
+                    grade: profile.grade
+                )
+                print("学籍信息更新成功")
+            } catch {
+                print("学籍信息更新失败: \(error.localizedDescription)")
+            }
+        }
+
         var store = NoticeStore.shared
         store.subscribedCategories = Set(profile.selectedCategories)
 

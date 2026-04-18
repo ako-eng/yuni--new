@@ -21,6 +21,16 @@ def users_json_path():
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users.json')
 
 
+def student_info_json_path():
+    """学籍信息 JSON 路径"""
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'student_info.json')
+
+
+def schedules_json_path():
+    """课表数据 JSON 路径"""
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'schedules.json')
+
+
 def load_notices_json(notices_file):
     """读取通知列表 JSON。若某条字符串值被错误换行（行尾为 `",` 的孤儿行），自动合并后再解析。"""
     with open(notices_file, 'r', encoding='utf-8') as f:
@@ -60,6 +70,39 @@ def save_users_json(users):
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(users, f, ensure_ascii=False, indent=2)
     os.replace(tmp, users_file)
+
+
+def load_student_info_json():
+    """读取学籍信息 JSON"""
+    student_info_file = student_info_json_path()
+    if not os.path.exists(student_info_file):
+        return {}
+    try:
+        with open(student_info_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return {}
+
+
+def save_student_info_json(student_info):
+    """保存学籍信息 JSON"""
+    student_info_file = student_info_json_path()
+    tmp = student_info_file + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(student_info, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, student_info_file)
+
+
+def load_schedules_json():
+    """读取课表数据 JSON"""
+    schedules_file = schedules_json_path()
+    if not os.path.exists(schedules_file):
+        return {}
+    try:
+        with open(schedules_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return {}
 
 
 def hash_password(password):
@@ -309,7 +352,77 @@ def create_app():
                 }
                 save_users_json(users)
 
-            return jsonify({'status': 'success', 'message': '登录成功'}), 200
+            # 加载学籍信息
+            student_info = load_student_info_json()
+            user_info = student_info.get(student_id, {'name': '', 'department': '', 'major': '', 'grade': ''})
+
+            return jsonify({
+                'status': 'success', 
+                'message': '登录成功',
+                'user_info': user_info
+            }), 200
+        except Exception as e:
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    @app.route('/api/auth/update', methods=['POST'])
+    def update_student_info():
+        """更新学籍信息接口"""
+        try:
+            if not request.is_json:
+                return jsonify({'status': 'error', 'message': '请求需使用 Content-Type: application/json'}), 400
+
+            data = request.get_json(silent=True)
+            if data is None:
+                return jsonify({'status': 'error', 'message': '无效的 JSON 请求体'}), 400
+            if not isinstance(data, dict):
+                return jsonify({'status': 'error', 'message': 'JSON 根须为对象'}), 400
+
+            student_id = (data.get('student_id') or data.get('studentId') or '').strip()
+            department = (data.get('department') or '').strip()
+            major = (data.get('major') or '').strip()
+            grade = (data.get('grade') or '').strip()
+            
+            if not student_id:
+                return jsonify({'status': 'error', 'message': '学号为必填项'}), 400
+
+            # 加载学籍信息
+            student_info = load_student_info_json()
+
+            # 更新学籍信息
+            if student_id not in student_info:
+                student_info[student_id] = {
+                    'name': '',
+                    'department': '',
+                    'major': '',
+                    'grade': ''
+                }
+
+            student_info[student_id]['department'] = department
+            student_info[student_id]['major'] = major
+            student_info[student_id]['grade'] = grade
+
+            save_student_info_json(student_info)
+
+            return jsonify({'status': 'success', 'message': '更新成功'}), 200
+        except Exception as e:
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    @app.route('/api/schedule', methods=['GET'])
+    def get_schedule():
+        """获取课表接口"""
+        try:
+            student_id = request.args.get('student_id', '', type=str).strip()
+            if not student_id:
+                return jsonify({'status': 'error', 'message': '学号为必填项'}), 400
+
+            # 加载课表数据
+            schedules = load_schedules_json()
+            schedule = schedules.get(student_id, [])
+
+            return jsonify({
+                'status': 'success',
+                'schedule': schedule
+            }), 200
         except Exception as e:
             return jsonify({'status': 'error', 'message': str(e)}), 500
 
