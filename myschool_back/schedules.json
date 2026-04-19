@@ -9,53 +9,7 @@
       "startPeriod": 1,
       "endPeriod": 2,
       "colorIndex": 0,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    },
-    {
-      "id": "c003",
-      "name": "数据结构",
-      "teacher": "陈思远",
-      "room": "教2-101",
-      "dayOfWeek": 2,
-      "startPeriod": 1,
-      "endPeriod": 2,
-      "colorIndex": 2,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    },
-    {
-      "id": "c006",
-      "name": "计算机网络",
-      "teacher": "张海涛",
-      "room": "教2-301",
-      "dayOfWeek": 3,
-      "startPeriod": 3,
-      "endPeriod": 4,
-      "colorIndex": 5,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    },
-    {
-      "id": "c009",
-      "name": "软件工程",
-      "teacher": "孙晓明",
-      "room": "教3-301",
-      "dayOfWeek": 5,
-      "startPeriod": 1,
-      "endPeriod": 2,
-      "colorIndex": 0,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    }
-  ],
-  "2024010102": [
-    {
-      "id": "c001",
-      "name": "高等数学",
-      "teacher": "王建国",
-      "room": "教3-201",
-      "dayOfWeek": 1,
-      "startPeriod": 1,
-      "endPeriod": 2,
-      "colorIndex": 0,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
     },
     {
       "id": "c002",
@@ -66,64 +20,484 @@
       "startPeriod": 3,
       "endPeriod": 4,
       "colorIndex": 1,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c003",
+      "name": "数据结构",
+      "teacher": "陈思远",
+      "room": "教2-101",
+      "dayOfWeek": 2,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 2,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "id": "c004",
+      "name": "算法分析",
+      "teacher": "赵晓东",
+      "room": "教2-201",
+      "dayOfWeek": 2,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 3,
+      "weeks": [9, 10, 11, 12, 13, 14, 15, 16]
     },
     {
       "id": "c005",
       "name": "大学英语",
       "teacher": "Emily Chen",
       "room": "外语楼203",
-      "dayOfWeek": 3,
-      "startPeriod": 1,
-      "endPeriod": 2,
+      "dayOfWeek": 2,
+      "startPeriod": 5,
+      "endPeriod": 6,
       "colorIndex": 4,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
     },
-    {
-      "id": "c007",
-      "name": "概率论",
-      "teacher": "刘雅琴",
-      "room": "教1-201",
-      "dayOfWeek": 4,
-      "startPeriod": 1,
-      "endPeriod": 2,
-      "colorIndex": 6,
-      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    }
-  ],
-  "2024010103": [
     {
       "id": "c006",
       "name": "计算机网络",
       "teacher": "张海涛",
       "room": "教2-301",
       "dayOfWeek": 3,
-      "startPeriod": 3,
-      "endPeriod": 4,
+      "startPeriod": 1,
+      "endPeriod": 2,
       "colorIndex": 5,
       "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     },
     {
-      "id": "c008",
+      "id": "c007",
       "name": "操作系统",
       "teacher": "周志强",
       "room": "教2-501",
-      "dayOfWeek": 4,
+      "dayOfWeek": 3,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 6,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "id": "c008",
+      "name": "数据库原理",
+      "teacher": "刘建国",
+      "room": "教3-401",
+      "dayOfWeek": 3,
       "startPeriod": 5,
       "endPeriod": 6,
       "colorIndex": 7,
-      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+      "weeks": [9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c009",
+      "name": "软件工程",
+      "teacher": "孙晓明",
+      "room": "教3-301",
+      "dayOfWeek": 4,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 0,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     },
     {
       "id": "c010",
       "name": "人工智能",
       "teacher": "吴天宇",
       "room": "教2-201",
-      "dayOfWeek": 5,
+      "dayOfWeek": 4,
       "startPeriod": 3,
       "endPeriod": 4,
       "colorIndex": 1,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c011",
+      "name": "数字电路",
+      "teacher": "陈光明",
+      "room": "教1-201",
+      "dayOfWeek": 5,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 2,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c012",
+      "name": "计算机组成原理",
+      "teacher": "王大为",
+      "room": "教1-401",
+      "dayOfWeek": 5,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 3,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c013",
+      "name": "体育",
+      "teacher": "张伟",
+      "room": "体育馆",
+      "dayOfWeek": 5,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 4,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c014",
+      "name": "形势与政策",
+      "teacher": "李红",
+      "room": "教4-101",
+      "dayOfWeek": 6,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 5,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c015",
+      "name": "马克思主义基本原理",
+      "teacher": "王教授",
+      "room": "教4-201",
+      "dayOfWeek": 6,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 6,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    }
+  ],
+  "2024010102": [
+    {
+      "id": "c101",
+      "name": "高等数学",
+      "teacher": "王建国",
+      "room": "教3-201",
+      "dayOfWeek": 1,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 0,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c102",
+      "name": "大学物理",
+      "teacher": "李明华",
+      "room": "教1-305",
+      "dayOfWeek": 1,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 1,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c103",
+      "name": "大学英语",
+      "teacher": "Emily Chen",
+      "room": "外语楼203",
+      "dayOfWeek": 1,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 2,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    },
+    {
+      "id": "c104",
+      "name": "概率论",
+      "teacher": "刘雅琴",
+      "room": "教1-201",
+      "dayOfWeek": 2,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 3,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c105",
+      "name": "线性代数",
+      "teacher": "张教授",
+      "room": "教3-301",
+      "dayOfWeek": 2,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 4,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c106",
+      "name": "普通化学",
+      "teacher": "李教授",
+      "room": "教1-501",
+      "dayOfWeek": 2,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 5,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c107",
+      "name": "大学语文",
+      "teacher": "王老师",
+      "room": "教4-101",
+      "dayOfWeek": 3,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 6,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "id": "c108",
+      "name": "中国近现代史",
+      "teacher": "陈老师",
+      "room": "教4-201",
+      "dayOfWeek": 3,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 7,
+      "weeks": [9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c109",
+      "name": "体育",
+      "teacher": "张伟",
+      "room": "体育馆",
+      "dayOfWeek": 3,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 0,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c110",
+      "name": "物理实验",
+      "teacher": "李老师",
+      "room": "物理实验室",
+      "dayOfWeek": 4,
+      "startPeriod": 1,
+      "endPeriod": 4,
+      "colorIndex": 1,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c111",
+      "name": "化学实验",
+      "teacher": "王老师",
+      "room": "化学实验室",
+      "dayOfWeek": 4,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 2,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c112",
+      "name": "形势与政策",
+      "teacher": "李红",
+      "room": "教4-101",
+      "dayOfWeek": 5,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 3,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c113",
+      "name": "心理健康教育",
+      "teacher": "张老师",
+      "room": "教4-301",
+      "dayOfWeek": 5,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 4,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c114",
+      "name": "艺术鉴赏",
+      "teacher": "刘老师",
+      "room": "艺术楼101",
+      "dayOfWeek": 6,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 5,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c115",
+      "name": "创新与创业",
+      "teacher": "赵老师",
+      "room": "教4-401",
+      "dayOfWeek": 6,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 6,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    }
+  ],
+  "2024010103": [
+    {
+      "id": "c201",
+      "name": "计算机网络",
+      "teacher": "张海涛",
+      "room": "教2-301",
+      "dayOfWeek": 1,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 0,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c202",
+      "name": "操作系统",
+      "teacher": "周志强",
+      "room": "教2-501",
+      "dayOfWeek": 1,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 1,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "id": "c203",
+      "name": "数据库原理",
+      "teacher": "刘建国",
+      "room": "教3-401",
+      "dayOfWeek": 1,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 2,
+      "weeks": [9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c204",
+      "name": "人工智能",
+      "teacher": "吴天宇",
+      "room": "教2-201",
+      "dayOfWeek": 2,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 3,
       "weeks": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c205",
+      "name": "机器学习",
+      "teacher": "陈教授",
+      "room": "教2-401",
+      "dayOfWeek": 2,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 4,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c206",
+      "name": "深度学习",
+      "teacher": "李教授",
+      "room": "教2-601",
+      "dayOfWeek": 2,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 5,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c207",
+      "name": "计算机组成原理",
+      "teacher": "王大为",
+      "room": "教1-401",
+      "dayOfWeek": 3,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 6,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c208",
+      "name": "数字电路",
+      "teacher": "陈光明",
+      "room": "教1-201",
+      "dayOfWeek": 3,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 7,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c209",
+      "name": "嵌入式系统",
+      "teacher": "赵老师",
+      "room": "教3-501",
+      "dayOfWeek": 3,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 0,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c210",
+      "name": "软件工程",
+      "teacher": "孙晓明",
+      "room": "教3-301",
+      "dayOfWeek": 4,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 1,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c211",
+      "name": "软件测试",
+      "teacher": "刘老师",
+      "room": "教3-601",
+      "dayOfWeek": 4,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 2,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c212",
+      "name": "移动应用开发",
+      "teacher": "张老师",
+      "room": "教2-701",
+      "dayOfWeek": 4,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 3,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
+    },
+    {
+      "id": "c213",
+      "name": "云计算",
+      "teacher": "王老师",
+      "room": "教3-701",
+      "dayOfWeek": 5,
+      "startPeriod": 1,
+      "endPeriod": 2,
+      "colorIndex": 4,
+      "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "c214",
+      "name": "大数据分析",
+      "teacher": "李老师",
+      "room": "教3-801",
+      "dayOfWeek": 5,
+      "startPeriod": 3,
+      "endPeriod": 4,
+      "colorIndex": 5,
+      "weeks": [1, 3, 5, 7, 9, 11, 13, 15]
+    },
+    {
+      "id": "c215",
+      "name": "网络安全",
+      "teacher": "陈老师",
+      "room": "教2-801",
+      "dayOfWeek": 5,
+      "startPeriod": 5,
+      "endPeriod": 6,
+      "colorIndex": 6,
+      "weeks": [2, 4, 6, 8, 10, 12, 14, 16]
     }
   ]
 }
