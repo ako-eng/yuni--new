@@ -31,6 +31,11 @@ def schedules_json_path():
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'schedules.json')
 
 
+def student_data_json_path():
+    """学生学业数据 JSON 路径（成绩/考试/获奖）"""
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'student_data.json')
+
+
 def load_notices_json(notices_file):
     """读取通知列表 JSON。若某条字符串值被错误换行（行尾为 `",` 的孤儿行），自动合并后再解析。"""
     with open(notices_file, 'r', encoding='utf-8') as f:
@@ -100,6 +105,18 @@ def load_schedules_json():
         return {}
     try:
         with open(schedules_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return {}
+
+
+def load_student_data_json():
+    """读取学生学业数据 JSON（成绩/考试/获奖）"""
+    data_file = student_data_json_path()
+    if not os.path.exists(data_file):
+        return {}
+    try:
+        with open(data_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     except json.JSONDecodeError:
         return {}
@@ -422,6 +439,26 @@ def create_app():
             return jsonify({
                 'status': 'success',
                 'schedule': schedule
+            }), 200
+        except Exception as e:
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    @app.route('/api/student/data', methods=['GET'])
+    def get_student_data():
+        """获取学生学业数据（成绩/考试/获奖）"""
+        try:
+            student_id = request.args.get('student_id', '', type=str).strip()
+            if not student_id:
+                return jsonify({'status': 'error', 'message': '学号为必填项'}), 400
+
+            all_data = load_student_data_json()
+            student_data = all_data.get(student_id, {})
+
+            return jsonify({
+                'status': 'success',
+                'grades': student_data.get('grades', []),
+                'exams': student_data.get('exams', []),
+                'awards': student_data.get('awards', []),
             }), 200
         except Exception as e:
             return jsonify({'status': 'error', 'message': str(e)}), 500

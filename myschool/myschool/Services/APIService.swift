@@ -77,14 +77,44 @@ struct APIErrorBody: Codable {
     let message: String?
 }
 
-struct UserInfo: Codable {
+struct UserInfo: Decodable {
     let name: String
     let department: String
     let major: String
     let grade: String
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case department
+        case major
+        case grade
+        case college
+        case faculty
+        case className = "class"
+    }
+
+    init(name: String, department: String, major: String, grade: String) {
+        self.name = name
+        self.department = department
+        self.major = major
+        self.grade = grade
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        name = try c.decodeIfPresent(String.self, forKey: .name) ?? ""
+        department = try c.decodeIfPresent(String.self, forKey: .department)
+            ?? c.decodeIfPresent(String.self, forKey: .college)
+            ?? c.decodeIfPresent(String.self, forKey: .faculty)
+            ?? ""
+        major = try c.decodeIfPresent(String.self, forKey: .major) ?? ""
+        grade = try c.decodeIfPresent(String.self, forKey: .grade)
+            ?? c.decodeIfPresent(String.self, forKey: .className)
+            ?? ""
+    }
 }
 
-struct LoginResponse: Codable {
+struct LoginResponse: Decodable {
     let status: String
     let message: String
     let userInfo: UserInfo
@@ -93,6 +123,35 @@ struct LoginResponse: Codable {
         case status
         case message
         case userInfo = "user_info"
+        case userInfoCamel = "userInfo"
+        case user
+        case data
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        status = try c.decodeIfPresent(String.self, forKey: .status) ?? "ok"
+        message = try c.decodeIfPresent(String.self, forKey: .message) ?? ""
+
+        if let nested = try c.decodeIfPresent(UserInfo.self, forKey: .userInfo) {
+            userInfo = nested
+            return
+        }
+        if let nested = try c.decodeIfPresent(UserInfo.self, forKey: .userInfoCamel) {
+            userInfo = nested
+            return
+        }
+        if let nested = try c.decodeIfPresent(UserInfo.self, forKey: .user) {
+            userInfo = nested
+            return
+        }
+        if let nested = try c.decodeIfPresent(UserInfo.self, forKey: .data) {
+            userInfo = nested
+            return
+        }
+
+        // 兜底：部分后端会把用户字段直接平铺在顶层。
+        userInfo = try UserInfo(from: decoder)
     }
 }
 
@@ -118,6 +177,44 @@ struct CourseDTO: Codable {
 struct ScheduleResponse: Codable {
     let status: String
     let schedule: [CourseDTO]
+}
+
+struct StudentDataResponse: Codable {
+    let status: String
+    let grades: [GradeRecordDTO]
+    let exams: [ExamInfoDTO]
+    let awards: [AwardDTO]
+}
+
+struct GradeRecordDTO: Codable {
+    let id: String
+    let courseName: String
+    let credit: Double
+    let score: Double
+    let gradePoint: Double
+    let semester: String
+}
+
+struct ExamInfoDTO: Codable {
+    let id: String
+    let courseName: String
+    let examDate: String
+    let location: String
+    let seatNumber: String
+}
+
+struct AwardDTO: Codable {
+    let id: String
+    let name: String
+    let level: String
+    let date: String
+    let category: String
+}
+
+struct StudentDataDTO {
+    let grades: [GradeRecord]
+    let exams: [ExamInfo]
+    let awards: [Award]
 }
 
 // MARK: - Mapping
@@ -184,6 +281,7 @@ actor APIService {
 
     private let session: URLSession
     private let decoder: JSONDecoder
+    private static let isoFormatter = ISO8601DateFormatter()
 
     private init() {
         let config = URLSessionConfiguration.default
@@ -192,6 +290,32 @@ actor APIService {
         session = URLSession(configuration: config)
         decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+    }
+
+    private static func parseFlexibleDate(_ raw: String) -> Date {
+        if let d = isoFormatter.date(from: raw) {
+            return d
+        }
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+        if let d = formatter.date(from: raw) {
+            return d
+        }
+
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let d = formatter.date(from: raw) {
+            return d
+        }
+
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let d = formatter.date(from: raw) {
+            return d
+        }
+
+        return Date()
     }
 
     func healthCheck() async -> Bool {
@@ -282,6 +406,60 @@ actor APIService {
             domain: "APIService",
             code: code,
             userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "获取课表失败（HTTP \(code)）" : text]
+        )
+    }
+
+    func getStudentData(studentId: String) async throws -> StudentDataDTO {
+        let url = APIConfiguration.baseURL.appendingPathComponent("api/student/data")
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "student_id", value: studentId)]
+        guard let finalURL = components.url else {
+            throw URLError(.badURL)
+        }
+
+        let (data, response) = try await session.data(from: finalURL)
+        let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+        if (200 ..< 300).contains(code) {
+            let response = try decoder.decode(StudentDataResponse.self, from: data)
+            let grades = response.grades.map {
+                GradeRecord(
+                    id: $0.id,
+                    courseName: $0.courseName,
+                    credit: $0.credit,
+                    score: $0.score,
+                    gradePoint: $0.gradePoint,
+                    semester: $0.semester
+                )
+            }
+            let exams = response.exams.map {
+                ExamInfo(
+                    id: $0.id,
+                    courseName: $0.courseName,
+                    examDate: Self.parseFlexibleDate($0.examDate),
+                    location: $0.location,
+                    seatNumber: $0.seatNumber
+                )
+            }
+            let awards = response.awards.map {
+                Award(
+                    id: $0.id,
+                    name: $0.name,
+                    level: AwardLevel(rawValue: $0.level) ?? .school,
+                    date: Self.parseFlexibleDate($0.date),
+                    category: $0.category
+                )
+            }
+            return StudentDataDTO(grades: grades, exams: exams, awards: awards)
+        }
+
+        if let err = try? decoder.decode(APIErrorBody.self, from: data), let msg = err.message, !msg.isEmpty {
+            throw NSError(domain: "APIService", code: code, userInfo: [NSLocalizedDescriptionKey: msg])
+        }
+        let text = String(data: data, encoding: .utf8) ?? ""
+        throw NSError(
+            domain: "APIService",
+            code: code,
+            userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "获取学业数据失败（HTTP \(code)）" : text]
         )
     }
 

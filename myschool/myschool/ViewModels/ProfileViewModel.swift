@@ -3,9 +3,35 @@ import Observation
 
 @Observable
 class ProfileViewModel {
-    var user = MockData.currentUser
-    var isLoggedIn = true
     private let store = NoticeStore.shared
+
+    var name: String {
+        AppSession.shared.name
+    }
+
+    var studentId: String {
+        AppSession.shared.studentId
+    }
+
+    var department: String {
+        AppSession.shared.department
+    }
+
+    var major: String {
+        AppSession.shared.major
+    }
+
+    var grade: String {
+        AppSession.shared.grade
+    }
+
+    var avatarName: String {
+        "person.crop.circle.fill"
+    }
+
+    var isLoggedIn: Bool {
+        AppSession.shared.isLoggedIn
+    }
 
     var unreadMessageCount: Int { store.unreadCount }
     var favoriteCount: Int { store.favoriteCount }
@@ -26,7 +52,6 @@ class ProfileViewModel {
     }
 
     func logout() {
-        isLoggedIn = false
         AppSession.shared.logout()
     }
 }

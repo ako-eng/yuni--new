@@ -1,0 +1,50 @@
+{
+  "2024010101": {
+    "grades": [
+      { "id": "g001", "course_name": "高等数学(上)", "credit": 5.0, "score": 92, "grade_point": 4.2, "semester": "2025-2026-1" },
+      { "id": "g002", "course_name": "程序设计基础", "credit": 4.0, "score": 95, "grade_point": 4.5, "semester": "2025-2026-1" },
+      { "id": "g003", "course_name": "大学英语(三)", "credit": 2.0, "score": 88, "grade_point": 3.8, "semester": "2025-2026-1" },
+      { "id": "g004", "course_name": "离散数学", "credit": 3.0, "score": 85, "grade_point": 3.5, "semester": "2025-2026-1" }
+    ],
+    "exams": [
+      { "id": "e001", "course_name": "高等数学", "exam_date": "2026-06-20T09:00:00+08:00", "location": "教3-201", "seat_number": "A12" },
+      { "id": "e002", "course_name": "数据结构", "exam_date": "2026-06-24T14:30:00+08:00", "location": "教2-101", "seat_number": "B08" }
+    ],
+    "awards": [
+      { "id": "a001", "name": "全国大学生数学竞赛二等奖", "level": "national", "date": "2025-12-01T00:00:00+08:00", "category": "学科竞赛" },
+      { "id": "a002", "name": "校级优秀学生奖学金", "level": "school", "date": "2025-10-01T00:00:00+08:00", "category": "奖学金" }
+    ]
+  },
+  "2024010102": {
+    "grades": [
+      { "id": "g101", "course_name": "线性代数", "credit": 3.0, "score": 78, "grade_point": 2.8, "semester": "2024-2025-2" },
+      { "id": "g102", "course_name": "数据结构", "credit": 4.0, "score": 91, "grade_point": 4.1, "semester": "2024-2025-2" },
+      { "id": "g103", "course_name": "计算机组成原理", "credit": 3.5, "score": 87, "grade_point": 3.7, "semester": "2024-2025-2" },
+      { "id": "g104", "course_name": "大学英语(二)", "credit": 2.0, "score": 90, "grade_point": 4.0, "semester": "2024-2025-2" }
+    ],
+    "exams": [
+      { "id": "e101", "course_name": "操作系统", "exam_date": "2026-06-26T09:00:00+08:00", "location": "教2-501", "seat_number": "C09" },
+      { "id": "e102", "course_name": "概率论", "exam_date": "2026-06-29T14:00:00+08:00", "location": "教1-201", "seat_number": "A18" }
+    ],
+    "awards": [
+      { "id": "a101", "name": "省级互联网+创新创业大赛银奖", "level": "provincial", "date": "2025-11-01T00:00:00+08:00", "category": "创新创业" },
+      { "id": "a102", "name": "校级社会实践优秀个人", "level": "school", "date": "2025-09-01T00:00:00+08:00", "category": "社会实践" }
+    ]
+  },
+  "2024010103": {
+    "grades": [
+      { "id": "g201", "course_name": "大学物理(上)", "credit": 4.0, "score": 90, "grade_point": 4.0, "semester": "2025-2026-1" },
+      { "id": "g202", "course_name": "思想政治理论", "credit": 3.0, "score": 82, "grade_point": 3.2, "semester": "2025-2026-1" },
+      { "id": "g203", "course_name": "软件工程", "credit": 3.0, "score": 89, "grade_point": 3.9, "semester": "2025-2026-1" },
+      { "id": "g204", "course_name": "计算机网络", "credit": 3.5, "score": 86, "grade_point": 3.6, "semester": "2025-2026-1" }
+    ],
+    "exams": [
+      { "id": "e201", "course_name": "软件工程", "exam_date": "2026-07-01T09:30:00+08:00", "location": "教3-301", "seat_number": "D11" },
+      { "id": "e202", "course_name": "计算机网络", "exam_date": "2026-07-03T15:00:00+08:00", "location": "教2-301", "seat_number": "B16" }
+    ],
+    "awards": [
+      { "id": "a201", "name": "ACM程序设计竞赛区域赛铜奖", "level": "provincial", "date": "2025-08-01T00:00:00+08:00", "category": "学科竞赛" },
+      { "id": "a202", "name": "国家励志奖学金", "level": "national", "date": "2025-10-01T00:00:00+08:00", "category": "奖学金" }
+    ]
+  }
+}

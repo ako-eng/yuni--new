@@ -6,19 +6,22 @@ struct ContentView: View {
     @State private var presentedNotice: NoticeSheetItem?
 
     var body: some View {
-        Group {
-            switch session.phase {
-            case .splash:
-                LaunchView(onFinished: { session.finishSplash() })
-            case .onboarding:
-                OnboardingFlowView(onFinished: { session.completeOnboarding() })
-            case .login:
-                LoginView(onLoginSuccess: { session.completeLogin() })
-            case .main:
-                mainChrome
-            }
+        phaseRoot
+            .id(session.phase)
+    }
+
+    @ViewBuilder
+    private var phaseRoot: some View {
+        switch session.phase {
+        case .splash:
+            LaunchView(onFinished: { session.finishSplash() })
+        case .onboarding:
+            OnboardingFlowView(onFinished: { session.completeOnboarding() })
+        case .login:
+            LoginView(onLoginSuccess: { session.finishSplash() })
+        case .main:
+            mainChrome
         }
-        .id(session.phase)
     }
 
     private var mainChrome: some View {

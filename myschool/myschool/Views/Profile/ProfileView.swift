@@ -67,7 +67,7 @@ struct ProfileView: View {
                         .fill(.ultraThinMaterial.opacity(0.3))
                         .frame(width: 60, height: 60)
 
-                    Image(systemName: viewModel.user.avatarName)
+                    Image(systemName: viewModel.avatarName)
                         .font(.system(size: 34))
                         .foregroundStyle(.white)
                         .symbolRenderingMode(.hierarchical)
@@ -79,13 +79,13 @@ struct ProfileView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(viewModel.user.name)
+                    Text(viewModel.name)
                         .font(AppFonts.title())
                         .foregroundStyle(.white)
-                    Text(viewModel.user.studentId)
+                    Text(viewModel.studentId)
                         .font(.system(size: 13, design: .monospaced))
                         .foregroundStyle(.white.opacity(0.75))
-                    Text("\(viewModel.user.department) · \(viewModel.user.grade)")
+                    Text("\(viewModel.department) · \(viewModel.grade)")
                         .font(AppFonts.smallCaption())
                         .foregroundStyle(.white.opacity(0.6))
                 }

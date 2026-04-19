@@ -54,40 +54,53 @@ class ScheduleViewModel {
     }
 
     func loadData() {
-        // 从后端获取课表
         Task {
-            do {
-                let studentId = AppSession.shared.studentId
-                if !studentId.isEmpty {
-                    let courseDTOs = try await APIService.shared.getSchedule(studentId: studentId)
-                    // 将 DTO 转换为 Course 模型
-                    allCourses = courseDTOs.map { dto in
-                        Course(
-                            id: dto.id,
-                            name: dto.name,
-                            teacher: dto.teacher,
-                            room: dto.room,
-                            dayOfWeek: dto.dayOfWeek,
-                            startPeriod: dto.startPeriod,
-                            endPeriod: dto.endPeriod,
-                            colorIndex: dto.colorIndex,
-                            weeks: dto.weeks
-                        )
-                    }
-                    print("课表加载成功，共 \(allCourses.count) 门课")
-                } else {
-                    // 如果没有学号，使用模拟数据
+            let studentId = AppSession.shared.studentId
+            guard !studentId.isEmpty else {
+                await MainActor.run {
                     allCourses = MockData.courses
+                    grades = MockData.grades
+                    exams = MockData.exams
+                    awards = MockData.awards
                 }
+                return
+            }
+
+            do {
+                async let courseTask = APIService.shared.getSchedule(studentId: studentId)
+                async let studentDataTask = APIService.shared.getStudentData(studentId: studentId)
+                let (courseDTOs, studentData) = try await (courseTask, studentDataTask)
+
+                let mappedCourses = courseDTOs.map { dto in
+                    Course(
+                        id: dto.id,
+                        name: dto.name,
+                        teacher: dto.teacher,
+                        room: dto.room,
+                        dayOfWeek: dto.dayOfWeek,
+                        startPeriod: dto.startPeriod,
+                        endPeriod: dto.endPeriod,
+                        colorIndex: dto.colorIndex,
+                        weeks: dto.weeks
+                    )
+                }
+
+                await MainActor.run {
+                    allCourses = mappedCourses
+                    grades = studentData.grades
+                    exams = studentData.exams
+                    awards = studentData.awards
+                }
+                print("课表/学业数据加载成功，课表 \(mappedCourses.count) 门")
             } catch {
-                print("课表加载失败: \(error.localizedDescription)")
-                // 加载失败时使用模拟数据
-                allCourses = MockData.courses
+                print("课表/学业数据加载失败: \(error.localizedDescription)")
+                await MainActor.run {
+                    allCourses = MockData.courses
+                    grades = MockData.grades
+                    exams = MockData.exams
+                    awards = MockData.awards
+                }
             }
         }
-        // 其他数据仍使用模拟数据
-        grades = MockData.grades
-        exams = MockData.exams
-        awards = MockData.awards
     }
 }
